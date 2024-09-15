@@ -23,7 +23,7 @@ class DataIngestion:
         logging.info('Enter the data ingestion method or component')
         try:
             
-            df = pd.read_csv('notebook/TestPad_PCB_XYRGB_V2.csv') 
+            df = pd.read_csv('notebook/data/TestPad_PCB_XYRGB_V2.csv') 
             logging.info('Read the Raw Dataset as a DataFrame')
 
             os.makedirs(os.path.dirname(self.ingestion_config.raw_data_path), exist_ok=True)
