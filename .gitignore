@@ -1,0 +1,5 @@
+build/
+logs/
+*.egg-info/
+artifacts/
+*.pyc
