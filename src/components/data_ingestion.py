@@ -8,6 +8,7 @@ from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
 
 from src.components.data_transformation import DataTransformation, DataTransformationConfig
+from src.components.model_trainer import ModelTrainer, ModelTrainerConfig
 
 
 @dataclass
@@ -24,8 +25,8 @@ class DataIngestion:
     def initiate_data_ingestion(self):
         logging.info('Enter the data ingestion method or component')
         try:
-            absolute_path = os.path.join(os.path.dirname(os.getcwd()),'notebook/data/TestPad_PCB_XYRGB_V2.csv')
-            df = pd.read_csv(absolute_path) 
+            relative_path = os.path.join('../../','notebook/data/TestPad_PCB_XYRGB_V2.csv')
+            df = pd.read_csv(relative_path) 
             logging.info('Read the Raw Dataset as a DataFrame')
 
             os.makedirs(os.path.dirname(self.ingestion_config.raw_data_path), exist_ok=True)
@@ -44,3 +45,6 @@ if __name__ == "__main__":
 
     data_transformation = DataTransformation()
     transformed_data = data_transformation.initiate_data_transformation(data_path)
+
+    model_trainer_obj = ModelTrainer()
+    model_trainer_obj.initiate_model_trainer(transformed_data=transformed_data)
