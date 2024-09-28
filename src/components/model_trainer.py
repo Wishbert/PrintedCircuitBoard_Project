@@ -45,31 +45,25 @@ class ModelTrainer:
 
     def initiate_model_trainer(self,transformed_data):
         try:
-            logging.info('Building Modeling PipeLine')
+            logging.info('Training Model')
 
-            modeling_pipeline = Pipeline(
-                steps=[
-                    ('Grey_Color_Model', Grey_Color_Model()),
-                    ('AgglomerativeClustereing',AgglomerativeClustering(
+            model = AgglomerativeClustering(
                         n_clusters=None,
                         distance_threshold=12,
                         linkage = "single"
-                            )
                     )
-                ]
-            )
-
-            logging.info('Training the Model')
-            modeling_pipeline.fit_predict(transformed_data)
             
-
+            model.fit(transformed_data)
+            
+            logging.info('Saving Model')
+            
             save_object(
                 file_path = self.model_trainer_config.trained_model_file_path,
-                obj = modeling_pipeline
+                obj = model
             )
 
             logging.info('Saved Model')
-            return modeling_pipeline
+            return model.fit_predict(transformed_data)
 
         except Exception as e:
             raise CustomException(e,sys)
