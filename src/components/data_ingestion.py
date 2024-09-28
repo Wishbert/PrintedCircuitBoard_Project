@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
 
 from src.components.data_transformation import DataTransformation, DataTransformationConfig
-from src.components.model_trainer import ModelTrainer, ModelTrainerConfig
+from src.components.model_trainer import ModelTrainer, ModelTrainerConfig, Grey_Color_Model
 
 
 @dataclass
@@ -39,12 +39,21 @@ class DataIngestion:
             raise CustomException(e, sys)
 
 
-if __name__ == "__main__":
+def Orchestrate():
     obj = DataIngestion()
     data_path = obj.initiate_data_ingestion()
 
     data_transformation = DataTransformation()
     transformed_data = data_transformation.initiate_data_transformation(data_path)
 
+    get_grey_pixels = Grey_Color_Model()
+    grey_pixels_data = get_grey_pixels.fit_transform(transformed_data)
+
     model_trainer_obj = ModelTrainer()
-    model_trainer_obj.initiate_model_trainer(transformed_data=transformed_data)
+    model_output = model_trainer_obj.initiate_model_trainer(transformed_data=grey_pixels_data)
+
+    return model_output, grey_pixels_data
+
+
+if __name__ == "__main__":
+    Orchestrate()
