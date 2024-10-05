@@ -25,7 +25,10 @@ class DataIngestion:
     def initiate_data_ingestion(self):
         logging.info('Enter the data ingestion method or component')
         try:
-            relative_path = os.path.join('../../','notebook/data/TestPad_PCB_XYRGB_V2.csv')
+            if os.getcwd().split('\\')[-1] == 'notebook':
+                relative_path = 'data/TestPad_PCB_XYRGB_V2.csv'
+            else:
+                relative_path = os.path.join('../../','notebook/data/TestPad_PCB_XYRGB_V2.csv')
             df = pd.read_csv(relative_path) 
             logging.info('Read the Raw Dataset as a DataFrame')
 
