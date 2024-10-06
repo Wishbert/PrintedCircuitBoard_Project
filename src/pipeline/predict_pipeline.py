@@ -27,7 +27,7 @@ class classification:
         self.data_with_cluster_and_count = self.grey_pixel_data.merge(cluster_pixel_number_df, how='left', on=['cluster_groups'])
 
         # I decided that 360 is my cutoff.
-        self.data_with_cluster_and_count = self.data_with_cluster_and_count.query('number_pixel >= 360') 
+        self.data_with_cluster_and_count = self.data_with_cluster_and_count.query('number_pixel >= 360 and number_pixel <= 1000') 
         return self.data_with_cluster_and_count
 
     def _get_average_coordinates(self):
